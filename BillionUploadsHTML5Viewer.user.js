@@ -5,6 +5,7 @@
 // @description  enter something useful
 // @author       You
 // @match        http://billionuploads.com/*
+// @match        http://180upload.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -22,19 +23,24 @@ $(document).ready(function(){
         return result;
     };
     
-    var url = queryStringToJSON($("<a/>").attr("href", $("#iceQuickStream").attr("src"))[0].search)['vurl'],
-        viewerURL = "http://tfaris.github.io/TamperMonkeyScripts/vjs-viewer/vjs-viewer.html?v=" + encodeURIComponent(url);
-    $("body").append(
-        $("<a id='cc-viewer' target='_blank' >View Me In HTML5</a>").attr("href", viewerURL)    
-    );
-    
-    // ** Styles **
-    $("#cc-viewer").css({
-        "font-size" : "26px",
-        "margin"    : "30px 5px",
-        "display"   : "block"
-    });
-    $(".tmpl").css({
-        "margin-top" : "100px"
-    });
+    var iceUrl = $("#iceQuickStream").attr("src");
+    if (iceUrl){
+        var urlData = queryStringToJSON($("<a/>").attr("href", iceUrl)[0].search);
+        if (urlData && urlData.vurl){
+            var viewerURL = "http://tfaris.github.io/TamperMonkeyScripts/vjs-viewer/vjs-viewer.html?v=" 
+                + encodeURIComponent(urlData.vurl);
+            $("body").append(
+                $("<a id='cc-viewer' target='_blank' >View In HTML5</a>").attr("href", viewerURL)    
+            );            
+            // ** Styles **
+            $("#cc-viewer").css({
+                "font-size" : "26px",
+                "margin"    : "30px 5px",
+                "display"   : "block"
+            });
+            $(".tmpl").css({
+                "margin-top" : "100px"
+            });
+        }
+    }
 });
