@@ -23,7 +23,7 @@ $(document).ready(function(){
     };
     
     var url = queryStringToJSON($("<a/>").attr("href", $("#iceQuickStream").attr("src"))[0].search)['vurl'],
-        viewerURL = "http://www.github.com/tfaris/TamperMonkeyScripts/vjs-viewer/vjs-viewer.html?v=" + encodeURIComponent(url);
+        viewerURL = "http://tfaris.github.io/TamperMonkeyScripts/vjs-viewer/vjs-viewer.html?v=" + encodeURIComponent(url);
     $("body").append(
         $("<a id='cc-viewer' target='_blank' >View Me In HTML5</a>").attr("href", viewerURL)    
     );
