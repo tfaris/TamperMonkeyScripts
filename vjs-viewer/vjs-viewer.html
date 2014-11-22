@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Original markup from http://www.videojs.com/ -->
+    <title>Video.js | HTML5 Video Player</title>
+    <link href="videojs/video-js.min.css" rel="stylesheet" type="text/css">
+    <script src="videojs/video.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <style type="text/css">
+        body{
+            
+        }
+        .vid-change input{
+            font-size:35px;
+            padding:10px
+        }
+        .container { 
+            margin:0 auto;
+            width:1280px;
+            height:700px;
+        }
+        .vid-change{
+            margin-top:20px;
+        }
+    </style>
+    <script type="text/javascript">
+        function queryStringToJSON(url) {
+            url = url || location.search;
+            if (url === '')
+                return {};
+            var pairs = url.slice(1).split('&');
+            var result = {};
+            for (var idx in pairs) {
+                var pair = pairs[idx].split('=');
+                if (!!pair[0])
+                    result[pair[0].toLowerCase()] = decodeURIComponent(pair[1] || '');
+            }
+            return result;
+        };
+        function loadVid(){
+            var $target         = $("#vid-url").val();
+            var $vid_obj        = _V_("video");
+            
+            $vid_obj.ready(function() {
+              // hide the video UI
+              $("#div_video_html5_api").hide();
+              // and stop it from playing
+              $vid_obj.pause();
+              // assign the targeted videos to the source nodes
+              $("video:nth-child(1)").attr("src", $target);
+              // reset the UI states
+              $("#video").removeClass("vjs-playing").addClass("vjs-paused");
+              // load the new sources
+              $vid_obj.load();
+              $("#div_video_html5_api").show();
+            });
+        }
+        $(document).ready(function(){
+            var docParams = queryStringToJSON(document.location.search);
+            if (docParams && docParams.v){
+                $("#vid-url").val(docParams.v);
+                loadVid();
+            }
+
+            $("input[type=button]").click(function() {
+                loadVid();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <video id="video" controls class="video-js vjs-default-skin" width="1280" height="720" data-setup="{}">  
+        </video>
+        <div class="vid-change">
+            <input id="vid-url" class="url-input" type="text" />
+            <input type="button" value="Load">
+        </div>
+    </div>
+</body>
+</html>
