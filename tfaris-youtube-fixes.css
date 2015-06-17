@@ -1,0 +1,7 @@
+/* Fix the size of the TV Queue player */
+#watch-queue-mole{
+    width: 50%; 
+}
+#watch-queue-mole .watch-queue-header{ 
+    height: 
+50px; }
