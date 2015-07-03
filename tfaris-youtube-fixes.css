@@ -5,3 +5,6 @@
 #watch-queue-mole .watch-queue-header{ 
     height: 50px;
 }
+#watch-discussion .comments .comment-text .comment-text-content{
+    max-height: none;
+}
